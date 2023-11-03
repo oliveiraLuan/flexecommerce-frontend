@@ -1,3 +1,17 @@
+@import '../../index.css';
+
+.dsc-btn {
+    width: 100%;
+    height: 42px;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 700;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
 .dsc-header-client {
     background-color: var(--dsc-color-bg-secondary);
     color: var(--dsc-color-font-tertiary);
