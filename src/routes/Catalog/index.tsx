@@ -2,6 +2,7 @@ import HeaderClient from "../../components/HeaderClient"
 import './styles.css';
 import SearchBar from "../../components/SearchBar";
 import CatalogCard from "../../components/CatalogCard";
+import ButtonLoadMore from "../../components/ButtonLoadMore";
 
 export default function Catalog() {
   return (
@@ -22,7 +23,7 @@ export default function Catalog() {
             <CatalogCard/>
           </div>
 
-          <div className="dsc-btn-next-page">Carregar mais</div>
+          <ButtonLoadMore/>
         </section>
       </main>
     </>
