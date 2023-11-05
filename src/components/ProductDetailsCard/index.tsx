@@ -17,8 +17,8 @@ export default function ProductDetailsCard(){
               Desfrute de uma condução suave e silenciosa com a tecnologia Conti Noise Cancelling, que reduz o ruído do atrito entre o pneu e a estrada. A tecnologia Conti Safety System melhora a aderência e o controle do veículo, proporcionando uma direção confiável em diferentes condições de estrada.
             </p>
             <div className="dsc-category-container">
-              <ProductCategory/>
-              <ProductCategory/>
+              <ProductCategory name='Pneus'/>
+              <ProductCategory name='Automóveis'/>
             </div>
           </div>
         </div>

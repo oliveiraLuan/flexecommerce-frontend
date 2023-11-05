@@ -69,6 +69,12 @@ main {
   text-align: left;
 }
 
+.dsc-card {
+  border: 1px solid var(--dsc-color-card-border);
+  border-radius: 4px;
+  background-color: var(--dsc-color-card-bg);
+}
+
 @media (min-width: 576px) {
   .dsc-section-title {
     text-align: left;
