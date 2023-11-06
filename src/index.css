@@ -75,6 +75,10 @@ main {
   background-color: var(--dsc-color-card-bg);
 }
 
+.dsc-line-bottom {
+  border-bottom: 1px solid var(--dsc-color-card-border);
+}
+
 @media (min-width: 576px) {
   .dsc-section-title {
     text-align: left;

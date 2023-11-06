@@ -1,10 +1,6 @@
 /*-----------------------------------------------------------------*/
 /* card styles */
 
-.dsc-line-bottom {
-  border-bottom: 1px solid var(--dsc-color-card-border);
-}
-
 .dsc-catalog-card-top {
   display: flex;
   justify-content: center;
