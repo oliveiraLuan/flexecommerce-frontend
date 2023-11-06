@@ -23,7 +23,7 @@ export default function Catalog() {
             <CatalogCard/>
           </div>
 
-          <ButtonLoadMore/>
+          <ButtonLoadMore textButton="Carregar mais"/>
         </section>
       </main>
     </>
