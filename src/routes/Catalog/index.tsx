@@ -1,4 +1,3 @@
-import HeaderClient from "../../components/HeaderClient"
 import './styles.css';
 import SearchBar from "../../components/SearchBar";
 import CatalogCard from "../../components/CatalogCard";
@@ -26,8 +25,6 @@ const product: ProductDTO = {
 
 export default function Catalog() {
   return (
-    <>
-      <HeaderClient/>
       <main>
         <section id="catalog-section" className="dsc-container">
           <SearchBar/>
@@ -46,6 +43,5 @@ export default function Catalog() {
           <ButtonLoadMore textButton="Carregar mais"/>
         </section>
       </main>
-    </>
   );
 }

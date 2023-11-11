@@ -1,6 +1,5 @@
 import ButtonPrimary from "../../components/ButtonPrimary";
 import ButtonSecondary from "../../components/ButtonSecondary";
-import HeaderClient from "../../components/HeaderClient";
 import ProductDetailsCard from "../../components/ProductDetailsCard";
 import { ProductDTO } from "../../models/product";
 import "./styles.css";
@@ -25,8 +24,6 @@ const product: ProductDTO = {
 
 export default function ProductDetails() {
   return (
-    <>
-      <HeaderClient />
       <main>
         <section id="product-details-section" className="dsc-container">
           <ProductDetailsCard product={product} />
@@ -36,6 +33,5 @@ export default function ProductDetails() {
           </div>
         </section>
       </main>
-    </>
   );
 }
