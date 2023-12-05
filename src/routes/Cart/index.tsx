@@ -1,25 +1,11 @@
-import { useEffect } from "react";
+import { useState } from "react";
 import "./styles.css";
-import { OrderDTO, OrderItemDTO } from "../../models/order";
+import { OrderDTO } from "../../models/order";
 import * as cartService from "../../services/cart-service";
 
 export default function Cart() {
 
-  const item1 : OrderItemDTO = new OrderItemDTO(
-    4, 1, "PNEU 195/55R15 CONTINENTAL", 399.90, "https://www.acheipneus.com.br/media/catalog/product/p/n/pneu-19555r15-continental-powercontact-2-85h-1.png?optimize=high&bg-color=255,255,255&fit=bounds&height=700&width=700&canvas=700:700&format=jpeg&dpr=2%202x"
-  );
-
-  const item2 : OrderItemDTO = new OrderItemDTO(
-    5,2, "Pneu Aro 15 Pirelli Powergy 195/55r15 85h", 329.89, "https://carrefourbr.vtexassets.com/arquivos/ids/131689140-1280-auto?v=638319739534100000&width=1280&height=auto&aspect=true"
-  )
-
-  const cart : OrderDTO = new OrderDTO;
-  cart.items.push(item1);
-  cart.items.push(item2);
-
-  useEffect(() => {  
-    cartService.save(cart);
-  }, []);
+  const [cart, setCart] = useState<OrderDTO>(cartService.get());
 
   return (
     <>
