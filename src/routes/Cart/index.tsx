@@ -13,7 +13,7 @@ export default function Cart() {
         <section id="cart-container-section" className="dsc-container">
           <div className="dsc-card dsc-mb20">
             {cart.items.map((item) => (
-              <div className="dsc-cart-item-container dsc-line-bottom">
+              <div key={item.productId} className="dsc-cart-item-container dsc-line-bottom">
                 <div className="dsc-cart-item-left">
                   <img src={item.imgUrl} alt={item.name} />
                   <div className="dsc-cart-item-description">
