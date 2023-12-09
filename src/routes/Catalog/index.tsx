@@ -7,26 +7,36 @@ import { useEffect, useState } from "react";
 import { ProductDTO } from "../../models/product";
 
 type QueryParams = {
-  page : number,
-  name : string
-}
+  page: number;
+  name: string;
+};
 
 export default function Catalog() {
+  const [isLastPage, setIsLastPage] = useState(false);
+
   const [products, setProducts] = useState<ProductDTO[]>([]);
 
   const [queryParams, setQueryParams] = useState<QueryParams>({
-      page : 0,
-      name : ""
+    page: 0,
+    name: "",
   });
 
   useEffect(() => {
-    productService.findPageRequest(queryParams.page, queryParams.name).then((response) => {
-      setProducts(response.data.content);
-    });
+    productService
+      .findPageRequest(queryParams.page, queryParams.name)
+      .then((response) => {
+        const nextPage = response.data.content;
+        setProducts(products.concat(nextPage));
+        setIsLastPage(response.data.last);
+      });
   }, [queryParams]);
 
   function handleOnSearch(searchText: string) {
-    setQueryParams({...queryParams, name: searchText});
+    setProducts([]), setQueryParams({ ...queryParams, name: searchText });
+  }
+
+  function handleLoadMore() {
+    setQueryParams({ ...queryParams, page: queryParams.page + 1 });
   }
 
   return (
@@ -39,8 +49,11 @@ export default function Catalog() {
             <CatalogCard key={product.id} product={product} />
           ))}
         </div>
-
-        <ButtonLoadMore textButton="Carregar mais" />
+        {!isLastPage && (
+          <div onClick={handleLoadMore}>
+            <ButtonLoadMore textButton="Carregar mais" />
+          </div>
+        )}
       </section>
     </main>
   );
