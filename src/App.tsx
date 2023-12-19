@@ -5,6 +5,7 @@ import ProductDetails from "./routes/ProductDetails";
 import Cart from "./routes/Cart";
 import { ContextCartCount } from "./utils/context-cart";
 import { useState } from "react";
+import Login from "./routes/Login";
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
                 <Route path="catalog" element={<Catalog/>}/>
                 <Route path="product-details/:productId" element={<ProductDetails/>}/>
                 <Route path="cart" element={<Cart/>}/>
+                <Route path="login" element={<Login/>}/>
             </Route>
             <Route path="*" element={<Navigate to={"/"} />}/>
         </Routes>
