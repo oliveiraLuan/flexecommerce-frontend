@@ -4,7 +4,7 @@
   --dsc-color-bg-primary: #e8e8e8;
   --dsc-color-bg-secondary: #FA7F19;
   --dsc-color-bg-tertiary: #636363;
-  --dsc-color-bg-quaternary: #0caf1d;
+  --dsc-color-bg-quaternary: #2f49cc;
   --dsc-color-bg-notification: #f00;
 
   --dsc-color-card-bg: #fff;
@@ -95,11 +95,6 @@ header {
   display: flex;
   align-items: center;
   padding: 0 20px;
-}
-
-.dsc-header-admin {
-  background-color: var(--dsc-color-bg-quaternary);
-  color: var(--dsc-color-font-tertiary);
 }
 
 nav {
