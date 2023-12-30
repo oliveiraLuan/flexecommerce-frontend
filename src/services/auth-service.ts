@@ -43,3 +43,11 @@ export function getAccessTokenPayloadDTO() : AccessTokenPayloadDTO | undefined{
         return undefined;
     }
 }
+
+export function isAuthenticated() : boolean {
+    const token = getAccessTokenPayloadDTO();
+    if(token && token.exp * 1000 > Date.now()){
+        return true;
+    }
+    return false;
+}
