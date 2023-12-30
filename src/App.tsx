@@ -1,4 +1,4 @@
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import Catalog from "./routes/Catalog";
 import CustomerHome from "./routes/CustomerHome";
 import ProductDetails from "./routes/ProductDetails";
@@ -10,7 +10,8 @@ import Admin from "./routes/Admin";
 import AdminHome from "./routes/Admin/AdminHome";
 import { unstable_HistoryRouter as HistoryRouter } from "react-router-dom";
 import {history} from './utils/history';
-import PrivateRoute from "./components/PrivateRoute";
+import { PrivateRoute } from "./components/PrivateRoute";
+
 function App() {
 
   const[contextCartCount, setContextCartCount] = useState<number>(0);
