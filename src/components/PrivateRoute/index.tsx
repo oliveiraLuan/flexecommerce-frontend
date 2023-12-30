@@ -5,7 +5,7 @@ export type Props = {
     children: JSX.Element;
 }
 
-export default function PrivateRoute({children} :  Props){
+export function PrivateRoute({children} :  Props){
     if(!authService.isAuthenticated){
         return <Navigate to={"/login"}/>
     }
