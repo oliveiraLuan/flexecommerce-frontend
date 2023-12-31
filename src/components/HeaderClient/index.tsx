@@ -3,7 +3,12 @@ import "./styles.css";
 import CartIcon from "../CartIcon";
 import iconAdmin from "../../assets/admin.svg";
 import { hasAnyRoles } from "../../services/auth-service";
+import { useContext } from "react";
+import { ContextToken } from "../../utils/context-token";
 export default function HeaderClient() {
+
+  const {contextTokenPayload} = useContext(ContextToken);
+
   return (
     <header className="dsc-header-client">
       <nav className="dsc-container">
@@ -12,7 +17,9 @@ export default function HeaderClient() {
         </Link>
         <div className="dsc-navbar-right">
           <div className="dsc-menu-items-container">
-            { hasAnyRoles(["ROLE_ADMIN"]) &&
+            { 
+              contextTokenPayload &&
+              hasAnyRoles(["ROLE_ADMIN"]) &&
               <div className="dsc-menu-item">
                 <Link to={"/admin"}>
                   <img src={iconAdmin} alt="Ícone para página de admin" />
