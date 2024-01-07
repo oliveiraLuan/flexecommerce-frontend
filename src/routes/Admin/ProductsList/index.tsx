@@ -2,7 +2,35 @@ import editIcon from "../../../assets/edit.svg";
 import deleteIcon from "../../../assets/delete.svg";
 import pneu from "../../../assets/pneu.png";
 import "./styles.css";
+import * as productService from "../../../services/product-service";
+import { useEffect, useState } from "react";
+import { ProductDTO } from "../../../models/product";
 export default function ProductsList() {
+
+  type queryParams = {
+    page: number,
+    name: string
+  }
+
+  const [isLastPage, setIsLastPage] = useState(false);
+
+  const [products, setProducts] = useState<ProductDTO[]>([]);
+
+  const [queryParams, setQueryParams] = useState<QueryParams>({
+    page: 0,
+    name: "",
+  });
+
+  useEffect(() => {
+    productService
+      .findPageRequest(queryParams.page, queryParams.name)
+      .then((response) => {
+        const nextPage = response.data.content;
+        setProducts(products.concat(nextPage));
+        setIsLastPage(response.data.last);
+      });
+  }, [queryParams]);
+
   return (
     <main>
       <section id="product-listing-section" className="dsc-container">
@@ -30,318 +58,33 @@ export default function ProductsList() {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td className="dsc-tb576">341</td>
-              <td>
-                <img
-                  className="dsc-product-listing-image"
-                  src={pneu}
-                  alt="Pneu"
-                />
-              </td>
-              <td className="dsc-tb768">R$ 299,99</td>
-              <td className="dsc-txt-left">Pneu Continental 185/65 R15</td>
-              <td>
-                <img
-                  className="dsc-product-listing-btn"
-                  src={editIcon}
-                  alt="Editar"
-                />
-              </td>
-              <td>
-                <img
-                  className="dsc-product-listing-btn"
-                  src={deleteIcon}
-                  alt="Deletar"
-                />
-              </td>
-            </tr>
-            <tr>
-              <td className="dsc-tb576">341</td>
-              <td>
-                <img
-                  className="dsc-product-listing-image"
-                  src={pneu}
-                  alt="Computer"
-                />
-              </td>
-              <td className="dsc-tb768">R$ 299,99</td>
-              <td className="dsc-txt-left">Pneu Continental 185/65 R15</td>
-              <td>
-                <img
-                  className="dsc-product-listing-btn"
-                  src={editIcon}
-                  alt="Editar"
-                />
-              </td>
-              <td>
-                <img
-                  className="dsc-product-listing-btn"
-                  src={deleteIcon}
-                  alt="Deletar"
-                />
-              </td>
-            </tr>
-            <tr>
-              <td className="dsc-tb576">341</td>
-              <td>
-                <img
-                  className="dsc-product-listing-image"
-                  src={pneu}
-                  alt="pneu"
-                />
-              </td>
-              <td className="dsc-tb768">R$ 299,99</td>
-              <td className="dsc-txt-left">Pneu Continental 185/65 R15</td>
-              <td>
-                <img
-                  className="dsc-product-listing-btn"
-                  src={editIcon}
-                  alt="Editar"
-                />
-              </td>
-              <td>
-                <img
-                  className="dsc-product-listing-btn"
-                  src={deleteIcon}
-                  alt="Deletar"
-                />
-              </td>
-            </tr>
-            <tr>
-              <td className="dsc-tb576">341</td>
-              <td>
-                <img
-                  className="dsc-product-listing-image"
-                  src={pneu}
-                  alt="Computer"
-                />
-              </td>
-              <td className="dsc-tb768">R$ 299,99</td>
-              <td className="dsc-txt-left">Pneu Continental 185/65 R15</td>
-              <td>
-                <img
-                  className="dsc-product-listing-btn"
-                  src={editIcon}
-                  alt="Editar"
-                />
-              </td>
-              <td>
-                <img
-                  className="dsc-product-listing-btn"
-                  src={deleteIcon}
-                  alt="Deletar"
-                />
-              </td>
-            </tr>
-            <tr>
-              <td className="dsc-tb576">341</td>
-              <td>
-                <img
-                  className="dsc-product-listing-image"
-                  src={pneu}
-                  alt="Pneu"
-                />
-              </td>
-              <td className="dsc-tb768">R$ 299,99</td>
-              <td className="dsc-txt-left">Pneu Continental 185/65 R15</td>
-              <td>
-                <img
-                  className="dsc-product-listing-btn"
-                  src={editIcon}
-                  alt="Editar"
-                />
-              </td>
-              <td>
-                <img
-                  className="dsc-product-listing-btn"
-                  src={deleteIcon}
-                  alt="Deletar"
-                />
-              </td>
-            </tr>
-            <tr>
-              <td className="dsc-tb576">341</td>
-              <td>
-                <img
-                  className="dsc-product-listing-image"
-                  src={pneu}
-                  alt="Pneu"
-                />
-              </td>
-              <td className="dsc-tb768">R$ 299,99</td>
-              <td className="dsc-txt-left">Pneu Continental 185/65 R15</td>
-              <td>
-                <img
-                  className="dsc-product-listing-btn"
-                  src={editIcon}
-                  alt="Editar"
-                />
-              </td>
-              <td>
-                <img
-                  className="dsc-product-listing-btn"
-                  src={deleteIcon}
-                  alt="Deletar"
-                />
-              </td>
-            </tr>
-            <tr>
-              <td className="dsc-tb576">341</td>
-              <td>
-                <img
-                  className="dsc-product-listing-image"
-                  src={pneu}
-                  alt="Pneu"
-                />
-              </td>
-              <td className="dsc-tb768">R$ 299,99</td>
-              <td className="dsc-txt-left">Pneu Continental 185/65 R15</td>
-              <td>
-                <img
-                  className="dsc-product-listing-btn"
-                  src={editIcon}
-                  alt="Editar"
-                />
-              </td>
-              <td>
-                <img
-                  className="dsc-product-listing-btn"
-                  src={deleteIcon}
-                  alt="Deletar"
-                />
-              </td>
-            </tr>
-            <tr>
-              <td className="dsc-tb576">341</td>
-              <td>
-                <img
-                  className="dsc-product-listing-image"
-                  src={pneu}
-                  alt="Pneu"
-                />
-              </td>
-              <td className="dsc-tb768">R$ 299,99</td>
-              <td className="dsc-txt-left">Pneu Continental 185/65 R15</td>
-              <td>
-                <img
-                  className="dsc-product-listing-btn"
-                  src={editIcon}
-                  alt="Editar"
-                />
-              </td>
-              <td>
-                <img
-                  className="dsc-product-listing-btn"
-                  src={deleteIcon}
-                  alt="Deletar"
-                />
-              </td>
-            </tr>
-            <tr>
-              <td className="dsc-tb576">341</td>
-              <td>
-                <img
-                  className="dsc-product-listing-image"
-                  src={pneu}
-                  alt="Pneu"
-                />
-              </td>
-              <td className="dsc-tb768">R$ 299,99</td>
-              <td className="dsc-txt-left">Pneu Continental 185/65 R15</td>
-              <td>
-                <img
-                  className="dsc-product-listing-btn"
-                  src={editIcon}
-                  alt="Editar"
-                />
-              </td>
-              <td>
-                <img
-                  className="dsc-product-listing-btn"
-                  src={deleteIcon}
-                  alt="Deletar"
-                />
-              </td>
-            </tr>
-            <tr>
-              <td className="dsc-tb576">341</td>
-              <td>
-                <img
-                  className="dsc-product-listing-image"
-                  src={pneu}
-                  alt="Pneu"
-                />
-              </td>
-              <td className="dsc-tb768">R$ 299,99</td>
-              <td className="dsc-txt-left">Pneu Continental 185/65 R15</td>
-              <td>
-                <img
-                  className="dsc-product-listing-btn"
-                  src={editIcon}
-                  alt="Editar"
-                />
-              </td>
-              <td>
-                <img
-                  className="dsc-product-listing-btn"
-                  src={deleteIcon}
-                  alt="Deletar"
-                />
-              </td>
-            </tr>
-            <tr>
-              <td className="dsc-tb576">341</td>
-              <td>
-                <img
-                  className="dsc-product-listing-image"
-                  src={pneu}
-                  alt="Pneu"
-                />
-              </td>
-              <td className="dsc-tb768">R$ 299,99</td>
-              <td className="dsc-txt-left">Pneu Continental 185/65 R15</td>
-              <td>
-                <img
-                  className="dsc-product-listing-btn"
-                  src={editIcon}
-                  alt="Editar"
-                />
-              </td>
-              <td>
-                <img
-                  className="dsc-product-listing-btn"
-                  src={deleteIcon}
-                  alt="Deletar"
-                />
-              </td>
-            </tr>
-            <tr>
-              <td className="dsc-tb576">341</td>
-              <td>
-                <img
-                  className="dsc-product-listing-image"
-                  src={pneu}
-                  alt="Pneu"
-                />
-              </td>
-              <td className="dsc-tb768">R$ 299,99</td>
-              <td className="dsc-txt-left">Pneu Continental 185/65 R15</td>
-              <td>
-                <img
-                  className="dsc-product-listing-btn"
-                  src={editIcon}
-                  alt="Editar"
-                />
-              </td>
-              <td>
-                <img
-                  className="dsc-product-listing-btn"
-                  src={deleteIcon}
-                  alt="Deletar"
-                />
-              </td>
-            </tr>
+
+            {
+                products.map(product => (
+                  <tr>
+                  <td className="dsc-tb576">{product.id}</td>
+                  <td>
+                    <img className="dsc-product-listing-image" src={product.imgUrl} alt={product.name}/>
+                  </td>
+                  <td className="dsc-tb768">{product.price}</td>
+                  <td className="dsc-txt-left">{product.name}</td>
+                  <td>
+                    <img
+                      className="dsc-product-listing-btn"
+                      src={editIcon}
+                      alt="Editar"
+                    />
+                  </td>
+                  <td>
+                    <img
+                      className="dsc-product-listing-btn"
+                      src={deleteIcon}
+                      alt="Deletar"
+                    />
+                  </td>
+                </tr>
+                ))
+            }
           </tbody>
         </table>
 
