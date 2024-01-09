@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { ProductDTO } from "../../../models/product";
 import SearchBar from "../../../components/SearchBar";
 import ButtonLoadMore from "../../../components/ButtonLoadMore";
+import DialogInfo from "../../../components/DialogInfo";
 export default function ProductsList() {
 
   type queryParams = {
@@ -98,6 +99,7 @@ export default function ProductsList() {
           <ButtonLoadMore onNextPage={handleLoadMore} />
         }
       </section>
+      <DialogInfo/>
     </main>
   );
 }

@@ -360,3 +360,35 @@ nav a {
     font-size: 16px;
   }
 }
+
+/*-----------------------------------------------------------------*/
+/* dialog styles */
+
+.dsc-dialog-background{
+  position: fixed;
+  background-color: rgba(0, 0, 0, 50%);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.dsc-dialog-box{
+  background-color: var(--dsc-color-card-bg);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  border-radius: 5px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.dsc-dialog-box h2{
+  margin-bottom: 20px;
+  font-size: 20px;
+  color: var(--dsc-color-font-primary);
+}
