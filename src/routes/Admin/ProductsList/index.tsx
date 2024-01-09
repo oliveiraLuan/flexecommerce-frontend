@@ -1,12 +1,11 @@
 import editIcon from "../../../assets/edit.svg";
 import deleteIcon from "../../../assets/delete.svg";
-import pneu from "../../../assets/pneu.png";
 import "./styles.css";
 import * as productService from "../../../services/product-service";
 import { useEffect, useState } from "react";
 import { ProductDTO } from "../../../models/product";
 import SearchBar from "../../../components/SearchBar";
-import { Search } from "react-router-dom";
+import ButtonLoadMore from "../../../components/ButtonLoadMore";
 export default function ProductsList() {
 
   type queryParams = {
@@ -36,6 +35,10 @@ export default function ProductsList() {
   function handleSearchBar(searchText: string){
       setProducts([]);
       setQueryParams({...queryParams, page : 0, name : searchText});
+  }
+
+  function handleLoadMore(){
+    setQueryParams({ ...queryParams, page: queryParams.page + 1 });
   }
 
   return (
@@ -90,8 +93,10 @@ export default function ProductsList() {
             }
           </tbody>
         </table>
-
-        <div className="dsc-btn-next-page">Carregar mais</div>
+        {
+          !isLastPage &&
+          <ButtonLoadMore onNextPage={handleLoadMore} />
+        }
       </section>
     </main>
   );

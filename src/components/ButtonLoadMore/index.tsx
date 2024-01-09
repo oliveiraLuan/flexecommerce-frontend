@@ -1,9 +1,9 @@
 import './styles.css';
 
 export type Props = {
-  textButton : string
+  onNextPage: Function;
 }
 
-export default function ButtonLoadMore({textButton} : Props) {
-  return <div className="dsc-btn-next-page">{textButton}</div>;
+export default function ButtonLoadMore({ onNextPage } : Props) {
+  return <div  onClick={() => onNextPage()} className="dsc-btn-next-page">Carregar mais</div>;
 }
