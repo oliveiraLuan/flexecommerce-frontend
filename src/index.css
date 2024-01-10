@@ -392,3 +392,7 @@ nav a {
   font-size: 20px;
   color: var(--dsc-color-font-primary);
 }
+
+.dsc-btn-container {
+  width: 100%;
+}
