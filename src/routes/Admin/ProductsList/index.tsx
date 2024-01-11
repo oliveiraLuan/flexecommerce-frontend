@@ -7,6 +7,7 @@ import { ProductDTO } from "../../../models/product";
 import SearchBar from "../../../components/SearchBar";
 import ButtonLoadMore from "../../../components/ButtonLoadMore";
 import DialogInfo from "../../../components/DialogInfo";
+import DialogAnswer from "../../../components/DialogAnswer";
 export default function ProductsList() {
 
   type queryParams = {
@@ -17,6 +18,12 @@ export default function ProductsList() {
   const [dialogInfoData, setDialogInfoData] = useState({
       visible: false,
       message: "Operação realizada com sucesso!"
+  });
+
+  const[dialogAnswerData, setDialogAnswerData] = useState({
+      visible: false,
+      message: "Deseja remover este produto?",
+      id: 0
   });
 
   const [isLastPage, setIsLastPage] = useState(false);
@@ -51,9 +58,25 @@ export default function ProductsList() {
       setDialogInfoData({...dialogInfoData, visible: false});
   }
 
-  function handleDialogInfoOpen(){
-    setDialogInfoData({...dialogInfoData, visible: true});
-}
+  function handleDialogDelete(productId: number){
+    setDialogAnswerData({...dialogAnswerData, id : productId, visible: true});
+  }
+
+  function handleDialogAnswer(answer: boolean, productId: number){
+    if(answer){
+        productService.deleteById(productId)
+        .then(() => {
+          setProducts([]);
+          setQueryParams({...queryParams, page : 0});
+        }).catch(error => {
+          setDialogInfoData({
+              visible: true,
+              message: error.response.data.error
+          });
+        });
+    }
+    setDialogAnswerData({...dialogAnswerData, visible : false});
+  }
 
   return (
     <main>
@@ -100,7 +123,7 @@ export default function ProductsList() {
                       className="dsc-product-listing-btn"
                       src={deleteIcon}
                       alt="Deletar"
-                      onClick={handleDialogInfoOpen}
+                      onClick={() => handleDialogDelete(product.id)}
                     />
                   </td>
                 </tr>
@@ -116,6 +139,10 @@ export default function ProductsList() {
         {
           dialogInfoData.visible &&
           <DialogInfo message={dialogInfoData.message} onDialogClose={handleDialogInfoClose}/>
+        }
+        {
+          dialogAnswerData.visible &&
+          <DialogAnswer message={dialogAnswerData.message} onDialogAnswer={handleDialogAnswer} id={dialogAnswerData.id}/>
         }
     </main>
   );

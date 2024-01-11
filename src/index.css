@@ -393,6 +393,13 @@ nav a {
   color: var(--dsc-color-font-primary);
 }
 
-.dsc-btn-container {
+.dsc-dialog-btn-container {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 20px;
+}
+
+.dsc-btn-container{
   width: 100%;
 }
