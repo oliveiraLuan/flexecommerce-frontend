@@ -8,22 +8,25 @@ import SearchBar from "../../../components/SearchBar";
 import ButtonLoadMore from "../../../components/ButtonLoadMore";
 import DialogInfo from "../../../components/DialogInfo";
 import DialogAnswer from "../../../components/DialogAnswer";
+import { useNavigate } from "react-router-dom";
+import ButtonSecondary from "../../../components/ButtonSecondary";
 export default function ProductsList() {
+  const navigate = useNavigate();
 
   type queryParams = {
-    page: number,
-    name: string
-  }
+    page: number;
+    name: string;
+  };
 
   const [dialogInfoData, setDialogInfoData] = useState({
-      visible: false,
-      message: "Operação realizada com sucesso!"
+    visible: false,
+    message: "Operação realizada com sucesso!",
   });
 
-  const[dialogAnswerData, setDialogAnswerData] = useState({
-      visible: false,
-      message: "Deseja remover este produto?",
-      id: 0
+  const [dialogAnswerData, setDialogAnswerData] = useState({
+    visible: false,
+    message: "Deseja remover este produto?",
+    id: 0,
   });
 
   const [isLastPage, setIsLastPage] = useState(false);
@@ -45,37 +48,43 @@ export default function ProductsList() {
       });
   }, [queryParams]);
 
-  function handleSearchBar(searchText: string){
-      setProducts([]);
-      setQueryParams({...queryParams, page : 0, name : searchText});
+  function handleSearchBar(searchText: string) {
+    setProducts([]);
+    setQueryParams({ ...queryParams, page: 0, name: searchText });
   }
 
-  function handleLoadMore(){
+  function handleLoadMore() {
     setQueryParams({ ...queryParams, page: queryParams.page + 1 });
   }
 
-  function handleDialogInfoClose(){
-      setDialogInfoData({...dialogInfoData, visible: false});
+  function handleDialogInfoClose() {
+    setDialogInfoData({ ...dialogInfoData, visible: false });
   }
 
-  function handleDialogDelete(productId: number){
-    setDialogAnswerData({...dialogAnswerData, id : productId, visible: true});
+  function handleDialogDelete(productId: number) {
+    setDialogAnswerData({ ...dialogAnswerData, id: productId, visible: true });
   }
 
-  function handleDialogAnswer(answer: boolean, productId: number){
-    if(answer){
-        productService.deleteById(productId)
+  function handleDialogAnswer(answer: boolean, productId: number) {
+    if (answer) {
+      productService
+        .deleteById(productId)
         .then(() => {
           setProducts([]);
-          setQueryParams({...queryParams, page : 0});
-        }).catch(error => {
+          setQueryParams({ ...queryParams, page: 0 });
+        })
+        .catch((error) => {
           setDialogInfoData({
-              visible: true,
-              message: error.response.data.error
+            visible: true,
+            message: error.response.data.error,
           });
         });
     }
-    setDialogAnswerData({...dialogAnswerData, visible : false});
+    setDialogAnswerData({ ...dialogAnswerData, visible: false });
+  }
+
+  function handleBtnNewProduct() {
+    navigate("/admin/products/create");
   }
 
   return (
@@ -84,10 +93,12 @@ export default function ProductsList() {
         <h2 className="dsc-section-title dsc-mb20">Cadastro de produtos</h2>
 
         <div className="dsc-btn-page-container dsc-mb20">
-          <div className="dsc-btn dsc-btn-white">Novo</div>
+          <div onClick={handleBtnNewProduct}>
+            <ButtonSecondary textButton="Novo"></ButtonSecondary>
+          </div>
         </div>
 
-        <SearchBar onSearch={handleSearchBar}/>
+        <SearchBar onSearch={handleSearchBar} />
 
         <table className="dsc-table dsc-mb20 dsc-mt20">
           <thead>
@@ -101,49 +112,52 @@ export default function ProductsList() {
             </tr>
           </thead>
           <tbody>
-
-            {
-                products.map(product => (
-                  <tr key={product.id}>
-                  <td className="dsc-tb576">{product.id}</td>
-                  <td>
-                    <img className="dsc-product-listing-image" src={product.imgUrl} alt={product.name}/>
-                  </td>
-                  <td className="dsc-tb768">{product.price}</td>
-                  <td className="dsc-txt-left">{product.name}</td>
-                  <td>
-                    <img
-                      className="dsc-product-listing-btn"
-                      src={editIcon}
-                      alt="Editar"
-                    />
-                  </td>
-                  <td>
-                    <img
-                      className="dsc-product-listing-btn"
-                      src={deleteIcon}
-                      alt="Deletar"
-                      onClick={() => handleDialogDelete(product.id)}
-                    />
-                  </td>
-                </tr>
-                ))
-            }
+            {products.map((product) => (
+              <tr key={product.id}>
+                <td className="dsc-tb576">{product.id}</td>
+                <td>
+                  <img
+                    className="dsc-product-listing-image"
+                    src={product.imgUrl}
+                    alt={product.name}
+                  />
+                </td>
+                <td className="dsc-tb768">{product.price}</td>
+                <td className="dsc-txt-left">{product.name}</td>
+                <td>
+                  <img
+                    className="dsc-product-listing-btn"
+                    src={editIcon}
+                    alt="Editar"
+                  />
+                </td>
+                <td>
+                  <img
+                    className="dsc-product-listing-btn"
+                    src={deleteIcon}
+                    alt="Deletar"
+                    onClick={() => handleDialogDelete(product.id)}
+                  />
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
-        {
-          !isLastPage &&
-          <ButtonLoadMore onNextPage={handleLoadMore} />
-        }
+        {!isLastPage && <ButtonLoadMore onNextPage={handleLoadMore} />}
       </section>
-        {
-          dialogInfoData.visible &&
-          <DialogInfo message={dialogInfoData.message} onDialogClose={handleDialogInfoClose}/>
-        }
-        {
-          dialogAnswerData.visible &&
-          <DialogAnswer message={dialogAnswerData.message} onDialogAnswer={handleDialogAnswer} id={dialogAnswerData.id}/>
-        }
+      {dialogInfoData.visible && (
+        <DialogInfo
+          message={dialogInfoData.message}
+          onDialogClose={handleDialogInfoClose}
+        />
+      )}
+      {dialogAnswerData.visible && (
+        <DialogAnswer
+          message={dialogAnswerData.message}
+          onDialogAnswer={handleDialogAnswer}
+          id={dialogAnswerData.id}
+        />
+      )}
     </main>
   );
 }
