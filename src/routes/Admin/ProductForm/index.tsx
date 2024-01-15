@@ -2,9 +2,40 @@ import { useParams } from "react-router-dom";
 import "./styles.css";
 import ButtonSecondary from "../../../components/ButtonSecondary";
 import { Link } from "react-router-dom";
+import FormInput from "../../../components/FormInput";
+import * as forms from "../../../utils/forms";
+import { useState } from "react";
 
 export default function ProductForm() {
+
+  const [formData, setFormData] = useState({
+    name: {
+      id: "name",
+      name: "name",
+      type: "text",
+      placeholder: "Nome do produto"
+    },
+    price: {
+      id: "price",
+      name: "price",
+      type: "number",
+      placeholder: "Preço do produto",
+    },
+    imgUrl: {
+      id: "imgUrl",
+      name: "imgUrl",
+      type: "text",
+      placeholder: "URL da imagem do produto"
+    }
+  });
+
   const params = useParams();
+
+  function handleInputChange(event: any){
+    const name = event.target.name;
+    const value = event.target.value;
+    setFormData(forms.update(formData, name, value));
+  }
 
   return (
     <main>
@@ -14,32 +45,13 @@ export default function ProductForm() {
             <h2>Dados do produto</h2>
             <div className="dsc-form-controls-container">
               <div>
-                <input
-                  className="dsc-form-control"
-                  type="text"
-                  placeholder="Nome"
-                />
+                <FormInput {...formData.name} className="dsc-form-control" onChange={handleInputChange}/>
               </div>
               <div>
-                <input
-                  className="dsc-form-control"
-                  type="text"
-                  placeholder="Preço"
-                />
+                <FormInput {...formData.price} className="dsc-form-control" onChange={handleInputChange}/>
               </div>
               <div>
-                <input
-                  className="dsc-form-control"
-                  type="text"
-                  placeholder="Imagem"
-                />
-              </div>
-              <div></div>
-              <div>
-                <textarea
-                  className="dsc-form-control dsc-textarea"
-                  placeholder="Descrição"
-                ></textarea>
+                <FormInput {...formData.imgUrl} className="dsc-form-control" onChange={handleInputChange}/>
               </div>
             </div>
 
