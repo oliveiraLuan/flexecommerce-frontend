@@ -18,19 +18,26 @@ export default function ProductForm() {
       id: "name",
       name: "name",
       type: "text",
-      placeholder: "Nome do produto"
+      placeholder: "Nome do produto",
+      value : ""
     },
     price: {
       id: "price",
       name: "price",
       type: "number",
       placeholder: "Preço do produto",
+      value: 0,
+      validation : function(value : any){
+          return Number(value) > 0;
+      },
+      message: "Insira um valor positivo"
     },
     imgUrl: {
       id: "imgUrl",
       name: "imgUrl",
       type: "text",
-      placeholder: "URL da imagem do produto"
+      placeholder: "URL da imagem do produto",
+      value: ""
     }
   });
 
