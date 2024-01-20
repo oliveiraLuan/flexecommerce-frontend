@@ -42,7 +42,10 @@ export default function ProductForm() {
       type: "text",
       placeholder: "URL da imagem do produto",
       value: "",
-      message: "Insira uma URL válida"
+      message: "Insira uma URL válida",
+      validation : function(value : string){
+        return /^.{10,80}$/.test(value);
+    }
     }
   });
 
