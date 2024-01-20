@@ -27,7 +27,7 @@ export default function ProductForm() {
       name: "price",
       type: "number",
       placeholder: "Preço do produto",
-      value: 0,
+      value: "",
       validation : function(value : any){
           return Number(value) > 0;
       },
@@ -53,6 +53,11 @@ export default function ProductForm() {
     setFormData(formValidated);
   }
 
+  function handleInputTurnDirty(name : string){
+    const formDataUpdated = forms.toDirty(formData, name);
+    setFormData(formDataUpdated);
+  }
+
   useEffect(() => {
       if(isEditing){
         productService.findById(Number(params.productId)).then(response => {
@@ -70,15 +75,15 @@ export default function ProductForm() {
             <h2>Dados do produto</h2>
             <div className="dsc-form-controls-container">
               <div>
-                <FormInput {...formData.name} className="dsc-form-control" onChange={handleInputChange}/>
+                <FormInput onTurnDirty={handleInputTurnDirty} {...formData.name} className="dsc-form-control" onChange={handleInputChange}/>
                 <div className="dsc-form-error">{formData.name.message}</div>
               </div>
               <div>
-                <FormInput {...formData.price} className="dsc-form-control" onChange={handleInputChange}/>
+                <FormInput onTurnDirty={handleInputTurnDirty} {...formData.price} className="dsc-form-control" onChange={handleInputChange}/>
                 <div className="dsc-form-error">{formData.price.message}</div>
               </div>
               <div>
-                <FormInput {...formData.imgUrl} className="dsc-form-control" onChange={handleInputChange}/>
+                <FormInput onTurnDirty={handleInputTurnDirty} {...formData.imgUrl} className="dsc-form-control" onChange={handleInputChange}/>
                 <div className="dsc-form-error">{formData.imgUrl.message}</div>
               </div>
             </div>
