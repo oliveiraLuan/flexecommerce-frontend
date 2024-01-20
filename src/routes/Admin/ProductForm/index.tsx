@@ -20,7 +20,10 @@ export default function ProductForm() {
       type: "text",
       placeholder: "Nome do produto",
       value : "",
-      message: "Insira um nome válido para o produto"
+      message: "Insira um nome válido para o produto",
+      validation : function(value : string){
+          return /^.{3,80}$/.test(value);
+      }
     },
     price: {
       id: "price",
