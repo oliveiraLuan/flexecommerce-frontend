@@ -6,6 +6,7 @@ import FormInput from "../../../components/FormInput";
 import * as forms from "../../../utils/forms";
 import { useEffect, useState } from "react";
 import * as productService from "../../../services/product-service";
+import FormTextArea from "../../../components/FormTextArea";
 
 export default function ProductForm() {
 
@@ -45,8 +46,20 @@ export default function ProductForm() {
       message: "Insira uma URL válida",
       validation : function(value : string){
         return /^.{10,80}$/.test(value);
+      }
+    },
+    description: {
+      id: "description",
+      name: "description",
+      type: "text",
+      placeholder: "Descrição do produto",
+      value : "",
+      message: "A descrição do produto deve ter no mínimo 10 caracteres",
+      validation : function(value : string){
+          return /^.{10,}$/.test(value);
+      }
     }
-    }
+
   });
 
   function handleInputChange(event: any){
@@ -84,6 +97,10 @@ export default function ProductForm() {
               <div>
                 <FormInput onTurnDirty={handleInputTurnDirty} {...formData.imgUrl} className="dsc-form-control" onChange={handleInputChange}/>
                 <div className="dsc-form-error">{formData.imgUrl.message}</div>
+              </div>
+              <div>
+                <FormTextArea onTurnDirty={handleInputTurnDirty} {...formData.description} className="dsc-form-control dsc-textarea" onChange={handleInputChange}/>
+                <div className="dsc-form-error">{formData.description.message}</div>
               </div>
             </div>
 
