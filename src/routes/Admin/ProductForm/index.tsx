@@ -44,18 +44,11 @@ export default function ProductForm() {
   });
 
   function handleInputChange(event: any){
-    const name = event.target.name;
-    const value = event.target.value;
-
-    const formUpdated = forms.update(formData, name, value);
-    const formValidated = forms.validate(formUpdated, name);
-
-    setFormData(formValidated);
+    setFormData(forms.updateAndValidate(formData, event.target.name, event.target.value));
   }
 
   function handleInputTurnDirty(name : string){
-    const formDataUpdated = forms.toDirty(formData, name);
-    setFormData(formDataUpdated);
+    setFormData(forms.dirtyAndValidate(formData, name));
   }
 
   useEffect(() => {

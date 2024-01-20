@@ -31,3 +31,13 @@ export function validate(inputs: any, name : any){
 export function toDirty(inputs: any, name: any){
     return {...inputs, [name] : {...inputs[name], dirty : "true"}};
 }
+
+export function updateAndValidate(inputs: any, name: string, newValue: any){
+    const formUpdated = update(inputs, name, newValue);
+    return validate(formUpdated, name);
+}
+
+export function dirtyAndValidate(inputs: any, name: string){
+    const formDirty = toDirty(inputs, name);
+    return validate(formDirty, name);
+}
