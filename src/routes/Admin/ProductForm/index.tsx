@@ -123,9 +123,9 @@ export default function ProductForm() {
               <div>
                   <FormSelect
                     {...formData.categories}
+                    className="dsc-form-control"
                     onChange={(obj : any) => {
                         const formUpdated = forms.updateAndValidate(formData, "categories", obj);
-                        console.log(formUpdated.categories);
                         setFormData(formUpdated);
                     }}
                     onTurnDirty={handleInputTurnDirty}
@@ -133,6 +133,7 @@ export default function ProductForm() {
                     getOptionValue={(obj) => String(obj.id)}
                     isMulti 
                     options={categories} />
+                    <div className="dsc-form-error">{formData.categories.message}</div>
               </div>
               <div>
                 <FormTextArea onTurnDirty={handleInputTurnDirty} {...formData.description} className="dsc-form-control dsc-textarea" onChange={handleInputChange}/>
