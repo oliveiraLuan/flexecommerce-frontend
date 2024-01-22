@@ -7,9 +7,9 @@ import * as forms from "../../../utils/forms";
 import { useEffect, useState } from "react";
 import * as productService from "../../../services/product-service";
 import FormTextArea from "../../../components/FormTextArea";
-import Select from "react-select";
 import * as categoryService from "../../../services/category-service";
 import { CategoryDTO } from "../../../models/category";
+import FormSelect from "../../../components/FormSelect";
 
 export default function ProductForm() {
 
@@ -63,8 +63,17 @@ export default function ProductForm() {
       validation : function(value : string){
           return /^.{10,}$/.test(value);
       }
+    },
+    categories : {
+      id: "categories",
+      name: "categories",
+      placeholder: "Categorias",
+      message: "Escolha no mínimo uma categoria para o produto",
+      value: [],
+      validation: function(value : CategoryDTO[]){
+          return value.length > 0;
+      }
     }
-
   });
 
   function handleInputChange(event: any){
@@ -112,7 +121,14 @@ export default function ProductForm() {
                 <div className="dsc-form-error">{formData.imgUrl.message}</div>
               </div>
               <div>
-                  <Select
+                  <FormSelect
+                    {...formData.categories}
+                    onChange={(obj : any) => {
+                        const formUpdated = forms.updateAndValidate(formData, "categories", obj);
+                        console.log(formUpdated.categories);
+                        setFormData(formUpdated);
+                    }}
+                    onTurnDirty={handleInputTurnDirty}
                     getOptionLabel={(obj) => obj.name}
                     getOptionValue={(obj) => String(obj.id)}
                     isMulti 
