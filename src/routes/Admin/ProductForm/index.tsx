@@ -7,12 +7,17 @@ import * as forms from "../../../utils/forms";
 import { useEffect, useState } from "react";
 import * as productService from "../../../services/product-service";
 import FormTextArea from "../../../components/FormTextArea";
+import Select from "react-select";
+import * as categoryService from "../../../services/category-service";
+import { CategoryDTO } from "../../../models/category";
 
 export default function ProductForm() {
 
   const params = useParams();
 
   const isEditing = params.productId !== "create";
+
+  const [categories, setCategories] = useState<CategoryDTO[]>([]);
 
   const [formData, setFormData] = useState({
     name: {
@@ -71,6 +76,14 @@ export default function ProductForm() {
   }
 
   useEffect(() => {
+    categoryService
+    .findAll()
+    .then(response => {
+        setCategories(response.data);
+    })
+  }, []);
+
+  useEffect(() => {
       if(isEditing){
         productService.findById(Number(params.productId)).then(response => {
             const formUpdated = forms.updateAll(formData, response.data);
@@ -97,6 +110,13 @@ export default function ProductForm() {
               <div>
                 <FormInput onTurnDirty={handleInputTurnDirty} {...formData.imgUrl} className="dsc-form-control" onChange={handleInputChange}/>
                 <div className="dsc-form-error">{formData.imgUrl.message}</div>
+              </div>
+              <div>
+                  <Select
+                    getOptionLabel={(obj) => obj.name}
+                    getOptionValue={(obj) => String(obj.id)}
+                    isMulti 
+                    options={categories} />
               </div>
               <div>
                 <FormTextArea onTurnDirty={handleInputTurnDirty} {...formData.description} className="dsc-form-control dsc-textarea" onChange={handleInputChange}/>
