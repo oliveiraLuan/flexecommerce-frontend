@@ -232,6 +232,11 @@ nav a {
   border: 1px solid var(--dsc-color-card-border);
 }
 
+.dsc-form-select-container{
+  padding: unset;
+  height: unset;
+}
+
 .dsc-form-control:focus {
   outline: none;
 }
@@ -253,18 +258,6 @@ nav a {
   font-size: 12px;
   padding-left: 4px;
   display: none;
-}
-
-.dsc-select:invalid {
-  color: var(--dsc-color-font-placeholder);
-}
-
-.dsc-select option[disabled] {
-  display: none;
-}
-
-.dsc-select option {
-  color: var(--dsc-color-font-primary);
 }
 
 .dsc-textarea {

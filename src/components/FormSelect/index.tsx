@@ -8,7 +8,6 @@ export default function FormSelect(props : any){
     function handleOnBlur(){
         onTurnDirty(props.name);
     }
-
     
     return (
         <div className={className} data-invalid={invalid} data-dirty={dirty}>
