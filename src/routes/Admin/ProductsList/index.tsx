@@ -83,6 +83,10 @@ export default function ProductsList() {
     setDialogAnswerData({ ...dialogAnswerData, visible: false });
   }
 
+  function handleBtnUpdate(productId : number){
+    navigate(`/admin/products/${productId}`);
+  }
+
   function handleBtnNewProduct() {
     navigate("/admin/products/create");
   }
@@ -129,6 +133,7 @@ export default function ProductsList() {
                     className="dsc-product-listing-btn"
                     src={editIcon}
                     alt="Editar"
+                    onClick={() => handleBtnUpdate(product.id)}
                   />
                 </td>
                 <td>
