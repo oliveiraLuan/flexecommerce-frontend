@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import "./styles.css";
 import ButtonSecondary from "../../../components/ButtonSecondary";
 import { Link } from "react-router-dom";
@@ -15,6 +15,8 @@ import { selectStyle } from "../../../utils/select-style";
 export default function ProductForm() {
 
   const params = useParams();
+
+  const navigate = useNavigate();
 
   const isEditing = params.productId !== 'create';
 
@@ -49,10 +51,7 @@ export default function ProductForm() {
       type: "text",
       placeholder: "URL da imagem do produto",
       value: "",
-      message: "Insira uma URL válida",
-      validation : function(value : string){
-        return /^.{10,80}$/.test(value);
-      }
+      message: "Insira uma URL válida"
     },
     description: {
       id: "description",
@@ -105,10 +104,21 @@ export default function ProductForm() {
   function handleSubmit(event : any){
     event.preventDefault();
     const formUpdated = forms.dirtyAndValidateAll(formData);
+    //Caso tenha algum input inválido
     if(forms.hasAnyInvalid(formUpdated)){
       setFormData(formUpdated);
       return;
     }
+
+    const requestBody = forms.toValues(formData);
+    console.log(requestBody);
+    if(isEditing){
+      requestBody.id = params.productId;
+      productService.updateRequest(requestBody).then(() => {
+        navigate("/admin/products");
+      });
+    }
+
   }
 
   return (

@@ -71,7 +71,8 @@ export function dirtyAndValidateAll(inputs : any){
 
 export function hasAnyInvalid(inputs : any){
     for(const name in inputs){
-        if(inputs[name].invalid){
+        if(inputs[name].invalid === "true" && inputs[name].dirty === "true"){
+            console.log(inputs[name]);
             return true;
         }
     }
