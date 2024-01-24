@@ -50,7 +50,6 @@ function App() {
                   <Route path="home" element={<AdminHome/>}/>
                   <Route path="products" element={<ProductsList/>}/>
                   <Route path="products/:productId" element={<ProductForm/>}/>
-                  <Route path="products/create" element={<ProductForm/>}/>
               </Route>
               <Route path="*" element={<Navigate to={"/"} />}/>
           </Routes>

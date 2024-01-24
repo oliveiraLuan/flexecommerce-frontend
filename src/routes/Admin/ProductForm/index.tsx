@@ -16,7 +16,7 @@ export default function ProductForm() {
 
   const params = useParams();
 
-  const isEditing = params.productId !== "create";
+  const isEditing = params.productId !== 'create';
 
   const [categories, setCategories] = useState<CategoryDTO[]>([]);
 
@@ -102,11 +102,20 @@ export default function ProductForm() {
       }
   }, []);
 
+  function handleSubmit(event : any){
+    event.preventDefault();
+    const formUpdated = forms.dirtyAndValidateAll(formData);
+    if(forms.hasAnyInvalid(formUpdated)){
+      setFormData(formUpdated);
+      return;
+    }
+  }
+
   return (
     <main>
       <section id="product-form-section" className="dsc-container">
         <div className="dsc-product-form-container">
-          <form className="dsc-card dsc-form">
+          <form className="dsc-card dsc-form" onSubmit={handleSubmit}>
             <h2>Dados do produto</h2>
             <div className="dsc-form-controls-container">
               <div>
