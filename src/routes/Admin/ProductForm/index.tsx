@@ -103,6 +103,7 @@ export default function ProductForm() {
 
   function handleSubmit(event : any){
     event.preventDefault();
+    
     const formUpdated = forms.dirtyAndValidateAll(formData);
     //Caso tenha algum input inválido
     if(forms.hasAnyInvalid(formUpdated)){
@@ -113,12 +114,20 @@ export default function ProductForm() {
     const requestBody = forms.toValues(formData);
     if(isEditing){
       requestBody.id = params.productId;
-      productService.updateRequest(requestBody).then(() => {
+      productService
+      .updateRequest(requestBody)
+      .then(() => {
         navigate("/admin/products");
+      }).catch(errors => {
+          const formDataUpdated = forms.setBackendErrors(formData, errors.response.data.errors);
+          setFormData(formDataUpdated);
       })
     } else {
       productService.insertRequest(requestBody).then(() => {
         navigate("/admin/products");
+      }).catch(errors => {
+        const formDataUpdated = forms.setBackendErrors(formData, errors.response.data.errors);
+        setFormData(formDataUpdated);
       })
     }
 
