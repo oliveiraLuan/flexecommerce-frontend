@@ -232,6 +232,17 @@ nav a {
   border: 1px solid var(--dsc-color-card-border);
 }
 
+.dsc-form-global-error{
+  font-size: 12px;
+  color: var(--dsc-color-bg-notification);
+  display: flex;
+  justify-content: center;
+  border: 1px solid var(--dsc-color-bg-notification);
+  border-radius: 5px;
+  padding: 5px 10px;
+  width: 100%;
+}
+
 .dsc-form-select-container{
   padding: unset;
   height: unset;
