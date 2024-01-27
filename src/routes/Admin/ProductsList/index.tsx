@@ -33,7 +33,7 @@ export default function ProductsList() {
 
   const [products, setProducts] = useState<ProductDTO[]>([]);
 
-  const [queryParams, setQueryParams] = useState<QueryParams>({
+  const [queryParams, setQueryParams] = useState<queryParams>({
     page: 0,
     name: "",
   });

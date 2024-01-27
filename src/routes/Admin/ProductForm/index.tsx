@@ -162,8 +162,8 @@ export default function ProductForm() {
                         setFormData(formUpdated);
                     }}
                     onTurnDirty={handleInputTurnDirty}
-                    getOptionLabel={(obj) => obj.name}
-                    getOptionValue={(obj) => String(obj.id)}
+                    getOptionLabel={(obj : any) => obj.name}
+                    getOptionValue={(obj : any) => String(obj.id)}
                     isMulti 
                     options={categories} />
                     <div className="dsc-form-error">{formData.categories.message}</div>
